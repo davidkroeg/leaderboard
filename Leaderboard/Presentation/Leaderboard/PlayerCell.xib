@@ -37,19 +37,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHn-pa-oAQ" userLabel="Seperator View">
-                                <rect key="frame" x="20" y="69" width="243" height="1"/>
-                                <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="vD6-qa-Mjt"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="nHn-pa-oAQ" secondAttribute="bottom" id="Bkz-ki-jza"/>
                             <constraint firstItem="GYg-Ie-kwW" firstAttribute="top" secondItem="ZCv-k8-bDJ" secondAttribute="top" constant="20" symbolic="YES" id="EjA-vO-PAO"/>
-                            <constraint firstAttribute="trailing" secondItem="nHn-pa-oAQ" secondAttribute="trailing" constant="20" symbolic="YES" id="HNF-bI-Qah"/>
                             <constraint firstItem="Jsu-A5-ujX" firstAttribute="top" secondItem="ZCv-k8-bDJ" secondAttribute="top" constant="20" symbolic="YES" id="J3b-po-MPo"/>
                             <constraint firstItem="Jsu-A5-ujX" firstAttribute="leading" secondItem="3Vf-9x-ZOo" secondAttribute="trailing" constant="20" id="JfQ-hm-62K"/>
                             <constraint firstItem="3Vf-9x-ZOo" firstAttribute="leading" secondItem="ZCv-k8-bDJ" secondAttribute="leading" constant="20" symbolic="YES" id="URo-Iw-5kF"/>
@@ -57,7 +48,6 @@
                             <constraint firstAttribute="bottom" secondItem="GYg-Ie-kwW" secondAttribute="bottom" constant="20" symbolic="YES" id="ZGq-Z7-WA0"/>
                             <constraint firstAttribute="trailing" secondItem="GYg-Ie-kwW" secondAttribute="trailing" constant="20" symbolic="YES" id="Zl7-BQ-OFN"/>
                             <constraint firstAttribute="bottom" secondItem="Jsu-A5-ujX" secondAttribute="bottom" constant="20" symbolic="YES" id="e0J-2T-MG2"/>
-                            <constraint firstItem="nHn-pa-oAQ" firstAttribute="leading" secondItem="ZCv-k8-bDJ" secondAttribute="leading" constant="20" symbolic="YES" id="gBU-PQ-SfG"/>
                             <constraint firstAttribute="bottom" secondItem="3Vf-9x-ZOo" secondAttribute="bottom" constant="20" symbolic="YES" id="loM-yc-Ama"/>
                             <constraint firstItem="3Vf-9x-ZOo" firstAttribute="top" secondItem="ZCv-k8-bDJ" secondAttribute="top" constant="20" symbolic="YES" id="wsA-1o-iZl"/>
                         </constraints>

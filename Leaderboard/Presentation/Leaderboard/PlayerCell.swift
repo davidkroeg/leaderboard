@@ -10,11 +10,13 @@ import UIKit
 
 class PlayerCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "player-cell"
+    
     @IBOutlet weak var labelRanking: UILabel!
     @IBOutlet weak var labelPlayerName: UILabel!
     @IBOutlet weak var labelCountry: UILabel!
     
-    static let reuseIdentifier = "player-cell"
+    let seperatorView = UIView()
     
     var ranking: String = "" {
         didSet {
@@ -30,11 +32,44 @@ class PlayerCell: UICollectionViewCell {
     
     var country: String? = "" {
         didSet {
-            labelCountry.text = country ?? ""
+            var text = ""
+            if let country = country {
+                text = flag(country: country)
+            }
+            labelCountry.text = text
         }
     }
     
     override func awakeFromNib() {
-        super.awakeFromNib()    }
+        super.awakeFromNib()
+        configure()
+    }
+    
+    func flag(country:String) -> String {
+        let base : UInt32 = 127397
+        var s = ""
+        for v in country.uppercased().unicodeScalars {
+            s.unicodeScalars.append(UnicodeScalar(base + v.value)!)
+        }
+        return s
+    }
 
+}
+
+extension PlayerCell {
+    
+    private func configure() {
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        seperatorView.backgroundColor = .lightGray
+        contentView.addSubview(seperatorView)
+        
+        let inset = CGFloat(10)
+        NSLayoutConstraint.activate([
+            seperatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            seperatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            seperatorView.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
+    }
+    
 }
