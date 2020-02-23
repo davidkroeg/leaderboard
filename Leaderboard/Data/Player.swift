@@ -25,5 +25,14 @@ struct Player: Hashable, Codable, Identifiable {
         return lhs.id == rhs.id
     }
     
-    
+    func contains(_ filter: String?) -> Bool {
+        guard let filterText = filter else {
+            return true
+        }
+        if filterText.isEmpty {
+            return true
+        }
+        let lowercaseFilter = filterText.lowercased()
+        return name.lowercased().contains(lowercaseFilter)
+    }
 }

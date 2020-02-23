@@ -73,7 +73,7 @@ extension LeaderboardViewController {
     
     private func performQuery(with filter: String?) {
         viewModel.getLeaderboard {
-            if let players = self.viewModel.players {
+            if let players = self.viewModel.filteredPlayers(with: filter) {
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Player>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(players)
@@ -88,6 +88,6 @@ extension LeaderboardViewController {
 //MARK: - UISearchbarDelegate methods
 extension LeaderboardViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //TODO: call filter function
+        performQuery(with: searchText)
     }
 }

@@ -14,6 +14,11 @@ class LeaderboardViewModel: NSObject {
     
     var players: [Player]?
     var leaderboard : Leaderboard?
+//    private lazy var leaderboard : Leaderboard = {
+//        getLeaderboard {
+//            return
+//        }
+//    }()
     
     func getPlayers(completion: @escaping () -> Void) {
         apiClient.fetchPlayers { (arrayOfPlayers) in
@@ -22,6 +27,11 @@ class LeaderboardViewModel: NSObject {
                 completion()
             }
         }
+    }
+    
+    func filteredPlayers(with filter: String? = nil) -> [Player]? {
+        let filtered = players?.filter { $0.contains(filter) }
+        return filtered
     }
     
     func getLeaderboard(completion: @escaping () -> Void) {
