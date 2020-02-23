@@ -9,38 +9,38 @@
 import Foundation
 
 class LeaderboardViewModel: NSObject {
-  @IBOutlet var apiClient : APIClient!
-  
-  var players: [Player]?
-  var leaderboard : Leaderboard?
-  
-  func getPlayers(completion: @escaping () -> Void) {
-    apiClient.fetchPlayers { (arrayOfPlayers) in
-      DispatchQueue.main.async {
-        self.players = arrayOfPlayers
-        completion()
-      }
+    @IBOutlet var apiClient : APIClient!
+    
+    var players: [Player]?
+    var leaderboard : Leaderboard?
+    
+    func getPlayers(completion: @escaping () -> Void) {
+        apiClient.fetchPlayers { (arrayOfPlayers) in
+            DispatchQueue.main.async {
+                self.players = arrayOfPlayers
+                completion()
+            }
+        }
     }
-  }
-  
-  func getLeaderboard(completion: @escaping () -> Void) {
-    apiClient.fetchLeaderboard { (leaderboard) in
-      DispatchQueue.main.async {
-        self.leaderboard = leaderboard
-        completion()
-      }
+    
+    func getLeaderboard(completion: @escaping () -> Void) {
+        apiClient.fetchLeaderboard { (leaderboard) in
+            DispatchQueue.main.async {
+                self.leaderboard = leaderboard
+                completion()
+            }
+        }
     }
-  }
-  
-  func numberOfItemsToDisplay(in section: Int) -> Int {
-    return leaderboard?.players.count ?? 0
-  }
-  
-  func playerNameToDisplay(for indexPath: IndexPath) -> String {
-    return leaderboard?.players[indexPath.row].name ?? ""
-  }
-  
-  func playerRankingToDisplay(for indexPath: IndexPath) -> String {
-    return String(leaderboard?.players[indexPath.row].rank ?? 0)
-  }
+    
+    func numberOfItemsToDisplay(in section: Int) -> Int {
+        return leaderboard?.players.count ?? 0
+    }
+    
+    func playerNameToDisplay(for indexPath: IndexPath) -> String {
+        return leaderboard?.players[indexPath.row].name ?? ""
+    }
+    
+    func playerRankingToDisplay(for indexPath: IndexPath) -> String {
+        return String(leaderboard?.players[indexPath.row].rank ?? 0)
+    }
 }
