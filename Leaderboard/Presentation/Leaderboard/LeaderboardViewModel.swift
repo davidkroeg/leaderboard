@@ -9,6 +9,7 @@
 import Foundation
 
 class LeaderboardViewModel: NSObject {
+    
     @IBOutlet var apiClient : APIClient!
     
     var players: [Player]?
@@ -31,10 +32,6 @@ class LeaderboardViewModel: NSObject {
                 completion()
             }
         }
-    }
-    
-    func numberOfItemsToDisplay(in section: Int) -> Int {
-        return leaderboard?.players.count ?? 0
     }
     
     func playerNameToDisplay(for indexPath: IndexPath) -> String {

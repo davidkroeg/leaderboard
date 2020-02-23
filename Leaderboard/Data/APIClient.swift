@@ -22,7 +22,6 @@ class APIClient: NSObject {
     
     //FIXME: - cant get players like this. Need to decode from leaderboard key
     func fetchPlayers(completion: @escaping ([Player]?) -> Void) {
-        //fetch json and decode and update some array property
         guard let url = URL(string: apiUrl) else {
             print("Error unwraping url.")
             return

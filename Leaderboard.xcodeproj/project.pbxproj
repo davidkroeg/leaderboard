@@ -19,7 +19,6 @@
 		63FFEC1D23F820FC00B521FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FFEC1B23F820FC00B521FC /* Main.storyboard */; };
 		63FFEC1F23F820FE00B521FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FFEC1E23F820FE00B521FC /* Assets.xcassets */; };
 		63FFEC2223F820FE00B521FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FFEC2023F820FE00B521FC /* LaunchScreen.storyboard */; };
-		63FFEC2A23F8395C00B521FC /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FFEC2923F8395C00B521FC /* MainTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		63FFEC1E23F820FE00B521FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63FFEC2123F820FE00B521FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63FFEC2323F820FE00B521FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63FFEC2923F8395C00B521FC /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +79,6 @@
 			children = (
 				63A1E1152402A343002EDC40 /* Cells and Supplementary Views */,
 				6303FCB324012FAD00C32ACF /* LeaderboardViewModel.swift */,
-				63FFEC2923F8395C00B521FC /* MainTableViewController.swift */,
 				6344CD3924028F4A00116566 /* LeaderboardViewController.swift */,
 			);
 			path = Leaderboard;
@@ -201,7 +198,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63FFEC1623F820FC00B521FC /* AppDelegate.swift in Sources */,
-				63FFEC2A23F8395C00B521FC /* MainTableViewController.swift in Sources */,
 				63FFEC1823F820FC00B521FC /* SceneDelegate.swift in Sources */,
 				63A1E1182402A385002EDC40 /* PlayerCell.swift in Sources */,
 				63547FB92401395300625291 /* Leaderboard.swift in Sources */,
