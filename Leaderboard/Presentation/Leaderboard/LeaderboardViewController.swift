@@ -15,13 +15,15 @@ class LeaderboardViewController: UICollectionViewController {
     }
     
     @IBOutlet var viewModel: LeaderboardViewModel!
-    let searchController = UISearchController(searchResultsController: nil)
+    
+    var searchController: UISearchController!
+    private var resultsTableController: ResultsTableController!
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, Player>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         configureHierarchie()
         configureDataSource()
         performQuery(with: nil)
@@ -30,14 +32,33 @@ class LeaderboardViewController: UICollectionViewController {
     
 }
 
-//MARK: - setup view
+//MARK: - Setup view
 extension LeaderboardViewController {
     
     private func configureHierarchie() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.searchController = searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        resultsTableController =
+            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
+        resultsTableController.tableView.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsTableController)
         searchController.delegate = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        
+        searchController.searchBar.scopeButtonTitles = ["Europe",
+                                                        "America",
+                                                        "China",
+                                                        "SEA"]
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(actionTapped))
+        
         collectionView.collectionViewLayout = createLayout()
         let cellNib = UINib(nibName: "PlayerCell", bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: PlayerCell.reuseIdentifier)
@@ -58,7 +79,7 @@ extension LeaderboardViewController {
     
 }
 
-//MARK: - setup datasource
+//MARK: - DataSource
 extension LeaderboardViewController {
     
     private func configureDataSource() {
@@ -88,7 +109,23 @@ extension LeaderboardViewController {
     }
 }
 
-//MARK: - UISearchControllerDelegate methods
+//MARK: - UITableViewDelegate for ResultTable
+extension LeaderboardViewController: UITableViewDelegate {
+    
+}
+
+//MARK: - UISearchBarDelegate
+extension LeaderboardViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        //updateSearchResults(for: searchController)
+    }
+}
+
+//MARK: - UISearchControllerDelegate
 extension LeaderboardViewController: UISearchControllerDelegate {
     
 }
