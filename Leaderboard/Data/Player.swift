@@ -9,20 +9,21 @@
 import Foundation
 
 struct Player: Hashable, Codable, Identifiable {
-  let id = UUID()
-  var rank: Int
-  var name: String
-  var teamId: Int?
-  var teamTag: String?
-  var country: String?
-  var sponsor: String?
-  
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(id)
-  }
-  
-  static func == (lhs: Player, rhs: Player) -> Bool {
-    return lhs.id == rhs.id
-  }
-  
+    let id = UUID()
+    var rank: Int
+    var name: String
+    var teamId: Int?
+    var teamTag: String?
+    var country: String?
+    var sponsor: String?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    
 }
