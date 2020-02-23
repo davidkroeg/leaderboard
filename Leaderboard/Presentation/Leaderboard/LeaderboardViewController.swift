@@ -8,21 +8,20 @@
 
 import UIKit
 
-class LeaderboardViewController: UIViewController {
+class LeaderboardViewController: UICollectionViewController {
     
     enum Section {
         case main
     }
     
     @IBOutlet var viewModel: LeaderboardViewModel!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var collectionView: UICollectionView!
-    
+    let searchController = UISearchController(searchResultsController: nil)
     var dataSource: UICollectionViewDiffableDataSource<Section, Player>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Leaderboard"
+        
+        
         configureHierarchie()
         configureDataSource()
         performQuery(with: nil)
@@ -35,10 +34,13 @@ class LeaderboardViewController: UIViewController {
 extension LeaderboardViewController {
     
     private func configureHierarchie() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.delegate = self
         collectionView.collectionViewLayout = createLayout()
         let cellNib = UINib(nibName: "PlayerCell", bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: PlayerCell.reuseIdentifier)
-        searchBar.delegate = self
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -86,9 +88,7 @@ extension LeaderboardViewController {
     }
 }
 
-//MARK: - UISearchbarDelegate methods
-extension LeaderboardViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performQuery(with: searchText)
-    }
+//MARK: - UISearchControllerDelegate methods
+extension LeaderboardViewController: UISearchControllerDelegate {
+    
 }

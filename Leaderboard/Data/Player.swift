@@ -35,4 +35,20 @@ struct Player: Hashable, Codable, Identifiable {
         let lowercaseFilter = filterText.lowercased()
         return name.lowercased().contains(lowercaseFilter)
     }
+    
+    func isFrom(_ countryFilter: String?) -> Bool {
+        guard let country = country else {
+            return true
+        }
+        
+        guard let countryText = countryFilter else {
+            return true
+        }
+        if countryText.isEmpty {
+            return true
+        }
+        
+        let lowercasedCountry = countryText.lowercased()
+        return country.lowercased().contains(lowercasedCountry)
+    }
 }
