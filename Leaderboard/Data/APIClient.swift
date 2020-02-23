@@ -62,7 +62,6 @@ class APIClient: NSObject {
             do {
                 let leaderboard: Leaderboard = try self.decoder.decode(Leaderboard.self, from: unwrappedData)
                 completion(leaderboard)
-                print("Successfully retreived data")
             } catch {
                 completion(nil)
                 print("Error getting API data: \(error)")
