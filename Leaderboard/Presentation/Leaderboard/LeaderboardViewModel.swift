@@ -26,7 +26,6 @@ class LeaderboardViewModel: NSObject {
     
     func filteredPlayers(with filter: String? = nil) -> [Player]? {
         let filtered = players?.filter { $0.contains(filter) }
-        players = filtered
         return filtered
     }
     

@@ -11,7 +11,19 @@ import UIKit
 class ResultCell: UITableViewCell {
     
     static let reuseIdentifier = "resultCell"
-
+    
+    var ranking: String = "" {
+        didSet {
+            self.detailTextLabel?.text = ranking
+        }
+    }
+    
+    var name: String = "" {
+        didSet {
+            self.textLabel?.text = name
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

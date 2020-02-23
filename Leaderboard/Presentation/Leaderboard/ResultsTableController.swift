@@ -10,41 +10,36 @@ import UIKit
 
 class ResultsTableController: UITableViewController {
 
+    enum Section {
+        case main
+    }
+    
     @IBOutlet weak var labelResults: UILabel!
     
+    var dataSource: UITableViewDiffableDataSource<Section, Player>!
     var filteredPlayers = [Player]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellNib = UINib(nibName: "ResultCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: ResultCell.reuseIdentifier)
+        configureDataSource()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
 
 }
 
 // MARK: - UITableViewDataSource
 extension ResultsTableController {
+    
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Player>(tableView: tableView, cellProvider: { (tableView: UITableView, indexPath: IndexPath, player: Player) -> UITableViewCell? in
+            guard let resultCell = tableView.dequeueReusableCell(withIdentifier: ResultCell.reuseIdentifier, for: indexPath) as? ResultCell else {
+                fatalError("Cannot create cell!")
+            }
+            resultCell.name = player.name
+            resultCell.ranking = String(player.rank)
+            return resultCell
+        })
+    }
     
 }

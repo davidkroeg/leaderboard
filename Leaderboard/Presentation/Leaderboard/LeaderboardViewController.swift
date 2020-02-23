@@ -38,26 +38,7 @@ extension LeaderboardViewController {
     private func configureHierarchie() {
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        resultsTableController =
-            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
-        resultsTableController.tableView.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsTableController)
-        searchController.delegate = self
-        searchController.searchBar.autocapitalizationType = .none
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        
-        searchController.searchBar.scopeButtonTitles = ["Europe",
-                                                        "America",
-                                                        "China",
-                                                        "SEA"]
-        
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
-        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(actionTapped))
+        configureSearchController()
         
         collectionView.collectionViewLayout = createLayout()
         let cellNib = UINib(nibName: "PlayerCell", bundle: nil)
@@ -75,6 +56,27 @@ extension LeaderboardViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+    
+    private func configureSearchController() {
+        resultsTableController =
+            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
+        resultsTableController.tableView.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsTableController)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for Players"
+        searchController.searchBar.scopeButtonTitles = ["Europe",
+                                                        "America",
+                                                        "China",
+                                                        "SEA"]
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
     }
     
 }
@@ -111,7 +113,7 @@ extension LeaderboardViewController {
 
 //MARK: - UITableViewDelegate for ResultTable
 extension LeaderboardViewController: UITableViewDelegate {
-    
+    //TODO: - handle input in result table
 }
 
 //MARK: - UISearchBarDelegate
@@ -125,7 +127,25 @@ extension LeaderboardViewController: UISearchBarDelegate {
     }
 }
 
-//MARK: - UISearchControllerDelegate
-extension LeaderboardViewController: UISearchControllerDelegate {
+//MARK: - UISearchResultsUpdating
+extension LeaderboardViewController: UISearchResultsUpdating {
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text!
+        
+        if let resultsController = searchController.searchResultsController as? ResultsTableController {
+            if let players = self.viewModel.filteredPlayers(with: searchText) {
+                var snapshot = NSDiffableDataSourceSnapshot<ResultsTableController.Section, Player>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(players)
+                resultsController.dataSource.apply(snapshot, animatingDifferences: true)
+                resultsController.filteredPlayers = players
+            }
+
+            resultsController.labelResults.text = resultsController.filteredPlayers.isEmpty ? NSLocalizedString("No players found", comment: "") : String(format: NSLocalizedString("Players found: %ld", comment: ""), resultsController.filteredPlayers.count)
+
+        }
+    }
     
 }
