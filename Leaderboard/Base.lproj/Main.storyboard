@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,16 +81,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Qzt-jp-Mub">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ejs-xI-cuK">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -109,9 +99,16 @@
                     <connections>
                         <outlet property="collectionView" destination="LjP-z7-FiE" id="LJb-kN-ZQZ"/>
                         <outlet property="searchBar" destination="TGz-Zq-pMP" id="xAq-IO-n8Z"/>
+                        <outlet property="viewModel" destination="wxK-LB-9oO" id="2Hn-Tx-6Zx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEV-fJ-dgd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="OFV-bo-mrT" customClass="APIClient" customModule="Leaderboard" customModuleProvider="target"/>
+                <customObject id="wxK-LB-9oO" customClass="LeaderboardViewModel" customModule="Leaderboard" customModuleProvider="target">
+                    <connections>
+                        <outlet property="apiClient" destination="OFV-bo-mrT" id="AyL-Yd-lSb"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="936" y="31"/>
         </scene>

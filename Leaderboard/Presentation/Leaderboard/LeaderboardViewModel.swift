@@ -27,6 +27,7 @@ class LeaderboardViewModel: NSObject {
         apiClient.fetchLeaderboard { (leaderboard) in
             DispatchQueue.main.async {
                 self.leaderboard = leaderboard
+                self.players = leaderboard?.players
                 completion()
             }
         }

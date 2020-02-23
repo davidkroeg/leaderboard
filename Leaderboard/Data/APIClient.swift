@@ -61,16 +61,10 @@ class APIClient: NSObject {
         return
       }
       
-
-      
-//      // Convert to a string and print
-//      if let JSONString = String(data: unwrappedData, encoding: String.Encoding.utf8) {
-//        print(JSONString)
-//      }
-      
       do {
         let leaderboard: Leaderboard = try self.decoder.decode(Leaderboard.self, from: unwrappedData)
         completion(leaderboard)
+        print("Successfully retreived data")
       } catch {
         completion(nil)
         print("Error getting API data: \(error)")
