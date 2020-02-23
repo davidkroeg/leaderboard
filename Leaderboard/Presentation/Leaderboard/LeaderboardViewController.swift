@@ -67,6 +67,7 @@ extension LeaderboardViewController {
             }
             playerCell.ranking = String(player.rank)
             playerCell.name = player.name
+            playerCell.country = player.country
             return playerCell
         }
     }

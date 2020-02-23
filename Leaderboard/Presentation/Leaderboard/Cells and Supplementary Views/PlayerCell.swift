@@ -12,6 +12,7 @@ class PlayerCell: UICollectionViewCell {
     
     @IBOutlet weak var labelRanking: UILabel!
     @IBOutlet weak var labelPlayerName: UILabel!
+    @IBOutlet weak var labelCountry: UILabel!
     
     static let reuseIdentifier = "player-cell"
     
@@ -24,6 +25,12 @@ class PlayerCell: UICollectionViewCell {
     var name: String = "" {
         didSet {
             labelPlayerName.text = name
+        }
+    }
+    
+    var country: String? = "" {
+        didSet {
+            labelCountry.text = country ?? ""
         }
     }
     
