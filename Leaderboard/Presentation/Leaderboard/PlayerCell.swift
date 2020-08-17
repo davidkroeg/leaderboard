@@ -10,33 +10,23 @@ import UIKit
 
 class PlayerCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "player-cell"
-    
     @IBOutlet weak var labelRanking: UILabel!
     @IBOutlet weak var labelPlayerName: UILabel!
     @IBOutlet weak var labelCountry: UILabel!
     
     let seperatorView = UIView()
     
-    var ranking: String = "" {
+    var player: Player? {
         didSet {
-            labelRanking.text = ranking
-        }
-    }
-    
-    var name: String = "" {
-        didSet {
-            labelPlayerName.text = name
-        }
-    }
-    
-    var country: String? = "" {
-        didSet {
-            var text = ""
-            if let country = country {
-                text = flag(country: country)
+            if let player = player {
+                labelRanking.text = "\(player.rank)."
+                labelPlayerName.text = player.name
+                var countryString = ""
+                if let country = player.country {
+                    countryString = flag(country: country)
+                }
+                labelCountry.text = countryString
             }
-            labelCountry.text = text
         }
     }
     

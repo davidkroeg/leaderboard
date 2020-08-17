@@ -39,11 +39,4 @@ class LeaderboardViewModel: NSObject {
         }
     }
     
-    func playerNameToDisplay(for indexPath: IndexPath) -> String {
-        return leaderboard?.players[indexPath.row].name ?? ""
-    }
-    
-    func playerRankingToDisplay(for indexPath: IndexPath) -> String {
-        return String(leaderboard?.players[indexPath.row].rank ?? 0)
-    }
 }

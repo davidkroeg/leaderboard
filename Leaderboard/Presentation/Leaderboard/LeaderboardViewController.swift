@@ -41,8 +41,7 @@ extension LeaderboardViewController {
         configureSearchController()
         
         collectionView.collectionViewLayout = createLayout()
-        let cellNib = UINib(nibName: "PlayerCell", bundle: nil)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: PlayerCell.reuseIdentifier)
+        collectionView.registerCell(ofType: PlayerCell.self)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -87,12 +86,8 @@ extension LeaderboardViewController {
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Player>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, player: Player) -> UICollectionViewCell? in
-            guard let playerCell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerCell.reuseIdentifier, for: indexPath) as? PlayerCell else {
-                fatalError("Cannot create cell!")
-            }
-            playerCell.ranking = String(player.rank)
-            playerCell.name = player.name
-            playerCell.country = player.country
+            let playerCell: PlayerCell = collectionView.dequeueTypedCell(forIndexPath: indexPath)
+            playerCell.player = player
             return playerCell
         }
     }
