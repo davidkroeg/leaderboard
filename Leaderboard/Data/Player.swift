@@ -9,13 +9,18 @@
 import Foundation
 
 struct Player: Hashable, Codable, Identifiable {
+    
     let id = UUID()
-    var rank: Int
-    var name: String
-    var teamId: Int?
-    var teamTag: String?
-    var country: String?
-    var sponsor: String?
+    let rank: Int
+    let name: String
+    let teamId: Int?
+    let teamTag: String?
+    let country: String?
+    let sponsor: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case rank, name, teamId, teamTag, country, sponsor
+    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -51,4 +56,5 @@ struct Player: Hashable, Codable, Identifiable {
         let lowercasedCountry = countryText.lowercased()
         return country.lowercased().contains(lowercasedCountry)
     }
+    
 }

@@ -93,7 +93,7 @@ extension LeaderboardViewController {
     }
     
     private func performQuery(with filter: String?) {
-        viewModel.getLeaderboard {
+        viewModel.loadLeaderboard(for: .europe) {//FIXME: dont hard code region
             if let players = self.viewModel.filteredPlayers(with: filter) {
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Player>()
                 snapshot.appendSections([.main])

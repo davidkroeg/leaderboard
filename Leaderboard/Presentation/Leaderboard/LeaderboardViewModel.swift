@@ -10,16 +10,28 @@ import Foundation
 
 class LeaderboardViewModel: NSObject {
     
-    @IBOutlet var apiClient : APIClient!
+    var leaderboardApi : LeaderboardApi
     
     var players: [Player]?
     var leaderboard : Leaderboard?
     
-    func getPlayers(completion: @escaping () -> Void) {
-        apiClient.fetchPlayers { (arrayOfPlayers) in
-            DispatchQueue.main.async {
-                self.players = arrayOfPlayers
+    override init() {
+        #if TEST
+        self.leaderboardApi = MockApiClient()
+        #else
+        self.leaderboardApi = ApiClient()
+        #endif
+    }
+    
+    func loadLeaderboard(for region: LeaderboardRegion, completion: @escaping () -> Void) {
+        leaderboardApi.fetchLeaderboard(for: region) { result in
+            switch result {
+            case .success(let leaderboard):
+                self.leaderboard = leaderboard
+                self.players = leaderboard.players
                 completion()
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
@@ -29,14 +41,6 @@ class LeaderboardViewModel: NSObject {
         return filtered
     }
     
-    func getLeaderboard(completion: @escaping () -> Void) {
-        apiClient.fetchLeaderboard { (leaderboard) in
-            DispatchQueue.main.async {
-                self.leaderboard = leaderboard
-                self.players = leaderboard?.players
-                completion()
-            }
-        }
-    }
+
     
 }
