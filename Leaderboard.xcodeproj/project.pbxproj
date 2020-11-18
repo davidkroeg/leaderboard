@@ -73,13 +73,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		154E057FF046605091F821BC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		6303FCAD24012BF800C32ACF /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +89,7 @@
 		6303FCB024012F5F00C32ACF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				63FFEC1B23F820FC00B521FC /* Main.storyboard */,
 				6303FCB124012F8000C32ACF /* Leaderboard */,
 				639A86CC2402E2AA00C5ECA7 /* FilterSettings */,
 				639A86CD2402E2C600C5ECA7 /* Player */,
@@ -143,7 +137,6 @@
 		63A1E11D2402CB1F002EDC40 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				63FFEC1B23F820FC00B521FC /* Main.storyboard */,
 				63FFEC2023F820FE00B521FC /* LaunchScreen.storyboard */,
 				63FFEC1E23F820FE00B521FC /* Assets.xcassets */,
 				63FFEC2323F820FE00B521FC /* Info.plist */,
@@ -184,7 +177,6 @@
 			children = (
 				63FFEC1423F820FC00B521FC /* Leaderboard */,
 				63FFEC1323F820FC00B521FC /* Products */,
-				154E057FF046605091F821BC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -394,7 +386,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 592YWPQ8E2;
 				INFOPLIST_FILE = Leaderboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 592YWPQ8E2;
 				INFOPLIST_FILE = Leaderboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -550,7 +542,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 592YWPQ8E2;
 				INFOPLIST_FILE = Leaderboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
