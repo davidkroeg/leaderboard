@@ -14,10 +14,19 @@ class LeaderboardViewController: UICollectionViewController {
         case main
     }
     
-    @IBOutlet var viewModel: LeaderboardViewModel!
+    var viewModel: LeaderboardViewModel
     
     var searchController: UISearchController!
     private var resultsTableController: ResultsTableController!
+    
+    required init?(coder: NSCoder) {
+        #if TEST
+        viewModel = LeaderboardViewModel(leaderboardApi: MockApiClient())
+        #else
+        viewModel = LeaderboardViewModel(leaderboardApi:  ApiClient())
+        #endif
+        super.init(coder: coder)
+    }
     
     var dataSource: UICollectionViewDiffableDataSource<Section, Player>!
     
@@ -45,15 +54,17 @@ extension LeaderboardViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(60))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                              heightDimension: .fractionalHeight(1.0))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                               heightDimension: .absolute(60))
+//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+//                                                       subitems: [item])
+//        let section = NSCollectionLayoutSection(group: group)
+//        let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
     
@@ -68,6 +79,7 @@ extension LeaderboardViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for Players"
+        //TODO: get regions from viewModel
         searchController.searchBar.scopeButtonTitles = ["Europe",
                                                         "America",
                                                         "China",
@@ -119,6 +131,7 @@ extension LeaderboardViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         //updateSearchResults(for: searchController)
+        //TODO: change data in
     }
 }
 

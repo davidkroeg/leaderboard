@@ -8,19 +8,15 @@
 
 import Foundation
 
-class LeaderboardViewModel: NSObject {
+class LeaderboardViewModel {
     
     var leaderboardApi : LeaderboardApi
     
     var players: [Player]?
     var leaderboard : Leaderboard?
     
-    override init() {
-        #if TEST
-        self.leaderboardApi = MockApiClient()
-        #else
-        self.leaderboardApi = ApiClient()
-        #endif
+    init(leaderboardApi: LeaderboardApi) {
+        self.leaderboardApi = leaderboardApi
     }
     
     func loadLeaderboard(for region: LeaderboardRegion, completion: @escaping () -> Void) {
