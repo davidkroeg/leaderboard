@@ -13,6 +13,10 @@ final class MockApiClient: LeaderboardApi {
     private static let delay = 0 // mock delay for request
     private static var requestCount = 1 // set this to 0 to mock data is nil at first attempt
     
+    func availableRegions() -> [LeaderboardRegion] {
+        return [.europe, .america, .china, .seAsia]
+    }
+    
     func fetchLeaderboard(for region: LeaderboardRegion, completion: @escaping (Result<Leaderboard, NetworkError>) -> Void) {
         switch MockApiClient.requestCount {
         case 0:
@@ -22,8 +26,7 @@ final class MockApiClient: LeaderboardApi {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
-                let filePath = self.getLeaderboardFilePath(for: region)
-                MockApiClient.loadJsonDataFromFile(filePath) { data in
+                MockApiClient.loadJsonDataFromFile(region.mockFilename) { data in
                     if let json = data {
                         do {
                             let leaderboard: Leaderboard = try decoder.decode(Leaderboard.self, from: json)
@@ -35,19 +38,6 @@ final class MockApiClient: LeaderboardApi {
                 }
             }
             MockApiClient.requestCount += 1
-        }
-    }
-    
-    private func getLeaderboardFilePath(for region: LeaderboardRegion) -> String {
-        switch region {
-        case .europe:
-            return "LeaderboardEurope"
-        case .america:
-            return "LeaderboardAmerica"
-        case .china:
-            return "LeaderboardChina"
-        case .seAsia:
-            return "LeaderboardSeAsia"
         }
     }
     

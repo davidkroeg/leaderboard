@@ -9,6 +9,7 @@
 import Foundation
 
 protocol LeaderboardApi {
+    func availableRegions() -> [LeaderboardRegion]
     func fetchLeaderboard(for region: LeaderboardRegion, completion: @escaping (Result<Leaderboard, NetworkError>) -> Void)
 }
 

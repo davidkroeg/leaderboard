@@ -10,6 +10,10 @@ import Foundation
 
 final class ApiClient: LeaderboardApi {
     
+    func availableRegions() -> [LeaderboardRegion] {
+        return [.europe, .america, .china, .seAsia]
+    }
+    
     func fetchLeaderboard(for region: LeaderboardRegion, completion: @escaping (Result<Leaderboard, NetworkError>) -> Void) {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
