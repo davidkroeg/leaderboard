@@ -18,6 +18,7 @@ class LeaderboardViewController: UICollectionViewController {
     
     var searchController: UISearchController!
     private var resultsTableController: ResultsTableController!
+    var dataSource: UICollectionViewDiffableDataSource<Section, Player>! = nil
     
     required init?(coder: NSCoder) {
         #if TEST
@@ -28,16 +29,13 @@ class LeaderboardViewController: UICollectionViewController {
         super.init(coder: coder)
     }
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Player>!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureHierarchie()
         configureDataSource()
         performQuery(with: nil)
-    }
-    
+    }    
     
 }
 
@@ -50,21 +48,16 @@ extension LeaderboardViewController {
         configureSearchController()
         
         collectionView.collectionViewLayout = createLayout()
-        collectionView.registerCell(ofType: PlayerCell.self)
+        collectionView.registerCell(ofType: PlayerCell2.self)
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                              heightDimension: .fractionalHeight(1.0))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                               heightDimension: .absolute(60))
-//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                       subitems: [item])
-//        let section = NSCollectionLayoutSection(group: group)
-//        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            //create different layouted sections here if wanted
+            let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+            return section
+        }
         return layout
     }
     
@@ -96,16 +89,30 @@ extension LeaderboardViewController {
 extension LeaderboardViewController {
     
     private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<PlayerCell, Player> { (cell, indexPath, player) in
+//            var content = cell.defaultContentConfiguration()
+//            var title = player.name
+//            if let countryCode = player.country {
+//                title += self.flag(country: countryCode)
+//            }
+//            content.text = title
+//            content.secondaryText = player.teamTag
+//            cell.contentConfiguration = content
+            cell.updateWithPlayer(player)
+        }
+        
         dataSource = UICollectionViewDiffableDataSource<Section, Player>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, player: Player) -> UICollectionViewCell? in
-            let playerCell: PlayerCell = collectionView.dequeueTypedCell(forIndexPath: indexPath)
-            playerCell.player = player
+            let playerCell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: player)
+//            let playerCell: PlayerCell2 = collectionView.dequeueTypedCell(forIndexPath: indexPath)
+//            playerCell.player = player
             return playerCell
         }
+        
     }
     
     private func performQuery(with filter: String?) {
-        viewModel.loadLeaderboard(for: .europe) {//FIXME: dont hard code region
+        viewModel.loadLeaderboard() {
             if let players = self.viewModel.filteredPlayers(with: filter) {
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Player>()
                 snapshot.appendSections([.main])
@@ -115,6 +122,13 @@ extension LeaderboardViewController {
         }
         
         
+    }
+}
+
+//MARK: - UICollectionViewDelegate
+extension LeaderboardViewController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 

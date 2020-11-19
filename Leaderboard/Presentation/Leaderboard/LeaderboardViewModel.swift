@@ -15,11 +15,13 @@ class LeaderboardViewModel {
     var players: [Player]?
     var leaderboard : Leaderboard?
     
+    var region: LeaderboardRegion = .europe //FIXME: dont hard code region
+    
     init(leaderboardApi: LeaderboardApi) {
         self.leaderboardApi = leaderboardApi
     }
     
-    func loadLeaderboard(for region: LeaderboardRegion, completion: @escaping () -> Void) {
+    func loadLeaderboard(completion: @escaping () -> Void) {
         leaderboardApi.fetchLeaderboard(for: region) { result in
             switch result {
             case .success(let leaderboard):
