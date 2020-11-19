@@ -124,8 +124,12 @@
             <point key="canvasLocation" x="934.78260869565224" y="30.803571428571427"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="Dota Red"/>
     <resources>
         <image name="line.horizontal.3.decrease" catalog="system" width="128" height="73"/>
+        <namedColor name="Dota Red">
+            <color red="0.7283613672" green="0.0" blue="0.0084816999339999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
